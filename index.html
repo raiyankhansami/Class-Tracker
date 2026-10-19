@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#101d3a" />
+  <meta name="description" content="Class Tracker — a private, admin-managed student calendar." />
+  <title>Class Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root{--navy:#101d3a;--navy-2:#1a2d54;--blue:#4169e1;--blue-pale:#eef3ff;--green:#16a765;--green-pale:#e7f8ef;--ink:#172033;--muted:#788297;--line:#e6eaf1;--surface:#fff;--canvas:#f6f8fc;--red:#d83b52;--shadow:0 18px 50px rgba(24,43,83,.08)}
+    *{box-sizing:border-box}html{min-height:100%;background:var(--canvas)}body{margin:0;color:var(--ink);font-family:'DM Sans',sans-serif;min-height:100vh;background:var(--canvas)}button,input{font:inherit}button{cursor:pointer}button:disabled{opacity:.58;cursor:not-allowed}a{color:inherit}.hidden{display:none!important}.app-shell{min-height:100vh;display:flex;flex-direction:column}.topbar{height:76px;background:var(--navy);color:white;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,5vw,72px);gap:16px}.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}.brand-mark{width:42px;height:42px;border-radius:14px;background:linear-gradient(145deg,#5d86ff,#3155c7);display:grid;place-items:center;box-shadow:0 5px 18px rgba(65,105,225,.3);flex-shrink:0}.brand-mark svg{width:24px;height:24px}.brand-name{font:800 19px 'Manrope',sans-serif;letter-spacing:-.5px}.brand-caption{font-size:11px;color:#bfcae2;letter-spacing:1.5px;text-transform:uppercase;margin-top:2px}.top-actions{display:flex;align-items:center;gap:14px}.secure-pill{display:flex;align-items:center;gap:7px;font-size:12px;color:#dce5f7;background:rgba(255,255,255,.08);padding:9px 12px;border:1px solid rgba(255,255,255,.12);border-radius:999px}.secure-pill svg{width:14px;height:14px}.btn{border:0;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 15px;font-weight:700;font-size:13px;transition:transform .15s,background .15s;white-space:nowrap}.btn:active{transform:scale(.98)}.btn-primary{background:var(--blue);color:#fff;box-shadow:0 6px 15px rgba(65,105,225,.18)}.btn-primary:hover{background:#3158d2}.btn-light{background:white;color:var(--navy);border:1px solid var(--line)}.btn-light:hover{background:#f3f6fb}.btn-ghost{color:white;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15)}.btn-small{padding:8px 11px;border-radius:10px;font-size:12px}.page-main{width:min(1160px,calc(100% - 36px));margin:32px auto 48px;flex:1}.auth-layout{min-height:calc(100vh - 76px);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(360px,.9fr);gap:clamp(30px,6vw,88px);align-items:center;width:min(1100px,calc(100% - 40px));margin:0 auto;padding:55px 0 60px}.intro{padding:10px 0}.eyebrow{display:inline-flex;align-items:center;gap:8px;text-transform:uppercase;letter-spacing:1.9px;font-size:11px;font-weight:800;color:var(--blue);background:var(--blue-pale);padding:8px 11px;border-radius:8px}.eyebrow i{width:6px;height:6px;background:var(--green);border-radius:50%}.intro h1{font:800 clamp(38px,5.2vw,58px)/1.08 'Manrope',sans-serif;letter-spacing:-2.5px;color:var(--navy);margin:22px 0 17px}.intro h1 span{color:var(--blue)}.intro p{font-size:16px;color:#69758d;line-height:1.8;max-width:480px;margin:0}.feature-list{display:grid;gap:15px;margin-top:34px}.feature{display:flex;gap:13px;align-items:center;color:#35415a;font-size:14px;font-weight:600}.feature-icon{width:38px;height:38px;display:grid;place-items:center;border:1px solid #e1e8f7;background:#fff;border-radius:12px;color:var(--blue);flex-shrink:0}.feature-icon svg{width:19px;height:19px}.auth-card{background:var(--surface);border:1px solid #e9edf5;border-radius:22px;padding:30px;box-shadow:var(--shadow);width:100%;max-width:445px;justify-self:end}.card-heading h2{font:800 23px 'Manrope',sans-serif;color:var(--navy);margin:0 0 8px;letter-spacing:-.5px}.card-heading p{font-size:13px;color:var(--muted);margin:0;line-height:1.6}.mode-switch{display:grid;grid-template-columns:1fr 1fr;background:#f2f5fa;padding:5px;border-radius:12px;margin:24px 0 20px;gap:4px}.mode-tab{border:0;background:transparent;border-radius:9px;padding:10px 8px;color:#718097;font-size:13px;font-weight:700}.mode-tab.active{color:var(--navy);background:white;box-shadow:0 2px 7px rgba(23,42,78,.08)}.field{display:grid;gap:7px;margin:15px 0}.field label{font-size:12px;font-weight:700;color:#37445d}.field input{height:46px;border:1px solid #dfe5ef;outline:none;border-radius:11px;padding:0 13px;color:var(--ink);width:100%;background:#fff;transition:border .15s,box-shadow .15s}.field input:focus{border-color:#7592f1;box-shadow:0 0 0 3px rgba(65,105,225,.11)}.field input::placeholder{color:#a4adbd}.field-hint{color:#939caf;font-size:11px;line-height:1.55}.full{width:100%;height:46px;margin-top:7px}.form-error,.form-success{font-size:12px;line-height:1.5;margin:12px 0 0;border-radius:10px;padding:10px 12px}.form-error{color:#a51f36;background:#fff0f2;border:1px solid #ffd5dc}.form-success{color:#117543;background:#eafaf1;border:1px solid #c9f0da}.setup-note{font-size:12px;line-height:1.6;padding:12px;margin:15px 0 0;color:#7a4a00;background:#fff8e8;border:1px solid #ffebbd;border-radius:10px}.privacy-note{display:flex;align-items:flex-start;gap:8px;font-size:11px;line-height:1.6;color:#8b94a6;margin:17px 0 0}.privacy-note svg{width:15px;height:15px;flex-shrink:0;margin-top:1px}.otp-entry{display:flex;gap:9px;margin:15px 0}.otp-entry input{letter-spacing:7px;text-align:center;font-weight:700;font-size:19px}.back-link{border:0;background:none;padding:4px 0;color:var(--blue);font-size:12px;font-weight:700}.footer{border-top:1px solid var(--line);padding:25px clamp(18px,5vw,72px);background:#fff}.footer-inner{width:min(1160px,100%);margin:auto;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}.owner{display:flex;gap:12px;align-items:center}.owner-avatar{width:44px;height:44px;background:var(--blue-pale);color:var(--blue);border:1px solid #dce6ff;border-radius:14px;display:grid;place-items:center;flex-shrink:0}.owner-avatar svg{width:23px;height:23px}.owner-name{font-weight:800;font-size:13px;color:var(--navy)}.owner-meta{font-size:11px;color:#858fa2;line-height:1.7;margin-top:3px}.socials{display:flex;align-items:center;gap:8px}.social-link{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:white;padding:9px 12px;border-radius:10px;text-decoration:none;color:#59657a;font-weight:700;font-size:12px}.social-link:hover{background:#f7f9fe}.social-link svg{width:15px;height:15px}.copyright{font-size:10px;color:#a0a8b7;width:100%;margin-top:10px}.dashboard-head{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:24px}.welcome h1{font:800 27px 'Manrope',sans-serif;letter-spacing:-.9px;color:var(--navy);margin:0 0 6px}.welcome p{font-size:13px;color:var(--muted);margin:0}.user-strip{display:flex;align-items:center;gap:12px}.avatar{width:45px;height:45px;border-radius:15px;background:linear-gradient(145deg,#dce6ff,#b8caff);display:grid;place-items:center;color:#3155c7;flex-shrink:0}.avatar svg{width:26px;height:26px}.user-meta{text-align:right}.user-meta strong{display:block;font-size:13px;color:var(--navy)}.user-meta span{display:block;font-size:11px;color:#8992a4;margin-top:4px}.uid-pill{display:inline-flex!important;color:#4561b9!important;background:#eff3ff;border:1px solid #e0e8ff;padding:4px 7px;border-radius:6px;font-size:10px!important;font-weight:800;letter-spacing:.4px}.dashboard-grid{display:grid;grid-template-columns:minmax(0,1fr) 290px;align-items:start;gap:20px}.calendar-card,.side-card{border:1px solid var(--line);border-radius:18px;background:white;box-shadow:0 6px 22px rgba(25,42,77,.035)}.calendar-card{padding:24px}.calendar-top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:23px}.calendar-title h2{font:800 20px 'Manrope',sans-serif;color:var(--navy);letter-spacing:-.6px;margin:0 0 5px}.calendar-title p{font-size:12px;color:var(--muted);margin:0}.month-controls{display:flex;align-items:center;gap:8px}.month-label{min-width:116px;text-align:center;font-size:13px;font-weight:800;color:#34415a}.icon-btn{width:35px;height:35px;border-radius:10px;border:1px solid var(--line);background:#fff;color:#56627a;display:grid;place-items:center}.icon-btn:hover{background:#f1f5ff;border-color:#d6e0ff;color:var(--blue)}.icon-btn svg{width:16px;height:16px}.weekdays,.calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}.weekdays{margin-bottom:8px}.weekday{text-align:center;padding:9px 0;color:#8993a7;font-size:10px;text-transform:uppercase;letter-spacing:.8px;font-weight:800}.day{min-height:72px;position:relative;border:1px solid #edf0f5;border-radius:12px;background:#fff;color:#3d4960;display:flex;align-items:flex-start;justify-content:flex-start;padding:10px;font-size:12px;font-weight:700;transition:border .15s,background .15s,transform .15s}.day .day-number{position:relative;z-index:1}.day.other-month{border-color:transparent;background:transparent;color:#c4cad5}.day.today:not(.marked){border-color:#95aaf8;background:#f7f9ff;color:#3155c7}.day.today:after{content:'TODAY';position:absolute;bottom:7px;left:10px;font-size:8px;letter-spacing:.5px;color:#6d85dd}.day.marked{background:var(--green-pale);border-color:#c1ecd3;color:#0b8247}.day.marked .day-number{color:#087642}.check-badge{position:absolute;right:8px;bottom:7px;width:25px;height:25px;background:var(--green);color:white;border-radius:50%;display:grid;place-items:center;box-shadow:0 3px 8px rgba(22,167,101,.2)}.check-badge svg{width:15px;height:15px;stroke-width:3}.day.admin-day{cursor:pointer}.day.admin-day:not(.other-month):hover{border-color:#9bb0fa;background:#f4f7ff;transform:translateY(-1px)}.day.admin-day.marked:hover{background:#d9f5e5;border-color:#8fddb0}.day:disabled{cursor:default}.calendar-legend{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:20px;padding-top:17px;border-top:1px solid #edf0f5}.legend-item{display:flex;align-items:center;gap:7px;color:#7d879a;font-size:11px}.legend-dot{width:12px;height:12px;border-radius:4px;border:1px solid #dfe5ee;background:#fff}.legend-dot.green{background:var(--green-pale);border-color:#b9e8cc}.legend-check{width:17px;height:17px;border-radius:50%;display:grid;place-items:center;background:var(--green);color:white}.legend-check svg{width:10px;height:10px;stroke-width:3}.side-card{padding:20px}.side-title{font:800 14px 'Manrope',sans-serif;color:var(--navy);margin:0}.side-subtitle{font-size:11px;color:#8993a7;line-height:1.65;margin:7px 0 18px}.summary-number{font:800 27px 'Manrope',sans-serif;color:var(--navy);letter-spacing:-1px}.summary-label{font-size:11px;color:#8b95a6;margin-top:2px}.summary-box{border:1px solid #e4eaff;background:#f6f8ff;border-radius:13px;padding:14px;margin:17px 0}.summary-box-row{display:flex;align-items:center;gap:11px}.summary-icon{width:38px;height:38px;border-radius:11px;background:white;color:var(--blue);display:grid;place-items:center;border:1px solid #e4eaff}.summary-icon svg{width:19px;height:19px}.note-block{font-size:11px;color:#7a8599;line-height:1.75;margin:14px 0 0}.profile-line{border-bottom:1px solid #eef0f5;padding:13px 0}.profile-line:last-child{border-bottom:0;padding-bottom:0}.profile-line span{font-size:10px;color:#919bad;display:block;margin-bottom:5px}.profile-line strong{font-size:12px;color:#344159;font-weight:700;overflow-wrap:anywhere}.admin-grid{grid-template-columns:300px minmax(0,1fr)}.admin-users{padding:18px}.admin-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}.stat{border:1px solid var(--line);border-radius:12px;padding:12px}.stat strong{font:800 22px 'Manrope',sans-serif;color:var(--navy);display:block}.stat span{font-size:10px;color:#8c96a8;margin-top:3px;display:block}.search-input{width:100%;height:40px;border:1px solid var(--line);border-radius:10px;padding:0 11px;outline:none;font-size:12px;margin-bottom:11px}.search-input:focus{border-color:#8ba2f7}.user-list{display:grid;gap:7px;max-height:530px;overflow:auto}.student-option{border:1px solid transparent;background:#fff;text-align:left;padding:11px;border-radius:12px;display:flex;align-items:center;gap:10px;min-width:0}.student-option:hover{background:#f8faff}.student-option.active{background:#eef3ff;border-color:#d9e3ff}.student-option .avatar{width:37px;height:37px;border-radius:12px}.student-option .avatar svg{width:21px;height:21px}.student-option-copy{min-width:0;flex:1}.student-option-copy strong{font-size:12px;color:#2b3850;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.student-option-copy span{font-size:10px;color:#8a94a7;display:block;margin-top:4px}.empty-state{padding:26px 14px;text-align:center;font-size:12px;line-height:1.7;color:#8c95a6}.selected-user-strip{display:flex;align-items:center;gap:10px;min-width:0}.selected-user-strip .avatar{width:39px;height:39px;border-radius:12px}.selected-user-copy{min-width:0}.selected-user-copy strong{display:block;font-size:12px;color:var(--navy);max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.selected-user-copy span{display:block;font-size:10px;color:#8b95a7;margin-top:4px}.admin-calendar-top{align-items:center}.edit-hint{font-size:11px;color:#8a95a8;display:flex;align-items:center;gap:6px;margin-top:10px}.edit-hint svg{width:14px;height:14px;color:var(--blue)}.toast{position:fixed;right:20px;bottom:20px;z-index:10;max-width:min(380px,calc(100vw - 40px));padding:13px 16px;border-radius:12px;background:#172541;color:white;box-shadow:0 10px 30px rgba(12,25,51,.22);font-size:12px;line-height:1.5}.toast.error{background:#a51f36}.inline-spinner{display:inline-block;width:15px;height:15px;border-radius:50%;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+    @media(max-width:880px){.auth-layout{grid-template-columns:1fr;max-width:520px;padding:35px 0;gap:30px}.intro{padding:0}.intro h1{font-size:43px}.intro p{font-size:14px}.feature-list{display:none}.auth-card{justify-self:center;max-width:none}.dashboard-grid,.admin-grid{grid-template-columns:1fr}.side-card{order:2}.admin-users{order:2}.dashboard-grid .calendar-card{order:1}.admin-grid .admin-calendar{order:1}.user-list{max-height:260px;grid-template-columns:repeat(2,minmax(0,1fr))}.dashboard-head{align-items:flex-start}.secure-pill{display:none}}
+    @media(max-width:560px){.topbar{height:67px;padding:0 16px}.brand-mark{width:38px;height:38px;border-radius:12px}.brand-name{font-size:17px}.brand-caption{font-size:9px}.topbar .btn{padding:9px 11px}.page-main{width:calc(100% - 24px);margin:22px auto 30px}.auth-layout{width:calc(100% - 28px);min-height:auto;padding:34px 0}.intro h1{font-size:37px;letter-spacing:-1.8px;margin-top:17px}.intro p{font-size:13px}.auth-card{padding:21px;border-radius:18px}.footer{padding:20px 16px}.footer-inner{align-items:flex-start}.owner{width:100%}.socials{margin-top:4px}.dashboard-head{display:block}.user-strip{margin-top:17px;justify-content:flex-start}.user-meta{text-align:left}.calendar-card{padding:14px;border-radius:15px}.calendar-top{align-items:flex-start;flex-direction:column;gap:14px;margin-bottom:15px}.month-controls{width:100%;justify-content:space-between}.month-label{min-width:0;flex:1}.weekdays,.calendar-grid{gap:4px}.weekday{font-size:9px;letter-spacing:0;padding:7px 0}.day{min-height:53px;padding:7px 5px;font-size:11px;border-radius:9px}.day.today:after{bottom:5px;left:5px;font-size:6px}.check-badge{width:20px;height:20px;right:4px;bottom:4px}.check-badge svg{width:12px;height:12px}.calendar-legend{gap:12px;margin-top:15px;padding-top:13px}.legend-item{font-size:10px}.user-list{grid-template-columns:1fr}.admin-calendar-top{flex-direction:column}.selected-user-strip{width:100%}.selected-user-copy strong{max-width:100%}.side-card{padding:17px}.welcome h1{font-size:24px}}
+  </style>
+</head>
+<body>
+<div class="app-shell">
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Class Tracker home" id="brandHome">
+      <span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 9 9-5 9 5-9 5-9-5Z"/><path d="M7 11.2V16c2.7 2.1 7.3 2.1 10 0v-4.8M21 9v6"/><path d="M21 15.2c-.8.6-1.1 1.6-1.1 2.7"/></svg></span>
+      <span><span class="brand-name">Class Tracker</span><span class="brand-caption">Your progress, at a glance</span></span>
+    </a>
+    <div class="top-actions"><span class="secure-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Private calendars</span><button class="btn btn-ghost btn-small hidden" id="topLogout" type="button">Sign out</button></div>
+  </header>
+
+  <section id="authView" class="auth-layout">
+    <div class="intro">
+      <span class="eyebrow"><i></i> Simple. Private. Organized.</span>
+      <h1>Your classes.<br /><span>Your calendar.</span></h1>
+      <p>A clean, personal calendar for keeping track of your class days. Your calendar stays private, and only the administrator can mark dates.</p>
+      <div class="feature-list">
+        <div class="feature"><span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg></span>See your own calendar, and nobody else's</div>
+        <div class="feature"><span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16.5 9"/></svg></span>Clear green check marks for tracked dates</div>
+        <div class="feature"><span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/><path d="m9 12 2 2 4-4"/></svg></span>Separate administrator access</div>
+      </div>
+    </div>
+    <div class="auth-card">
+      <div class="card-heading"><h2>Welcome to Class Tracker</h2><p>Sign in to view your personal calendar.</p></div>
+      <div class="mode-switch" role="tablist" aria-label="Login type"><button id="studentTab" class="mode-tab active" type="button" role="tab" aria-selected="true">Student login</button><button id="adminTab" class="mode-tab" type="button" role="tab" aria-selected="false">Admin login</button></div>
+      <form id="studentAuthForm">
+        <div id="studentStartFields">
+          <div class="field"><label for="studentName">Full name</label><input id="studentName" type="text" autocomplete="name" maxlength="80" placeholder="Enter your name" required /></div>
+          <div class="field"><label for="studentPhone">Phone number</label><input id="studentPhone" type="tel" autocomplete="tel" inputmode="tel" maxlength="18" placeholder="01XXXXXXXXX or +8801XXXXXXXXX" required /><span class="field-hint">We'll send a one-time code to verify your phone.</span></div>
+          <button class="btn btn-primary full" type="submit" id="sendOtpBtn">Continue with phone <span aria-hidden="true">→</span></button>
+        </div>
+        <div id="otpFields" class="hidden">
+          <div class="field"><label for="otpCode">6-digit verification code</label><input id="otpCode" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" placeholder="· · · · · ·" /></div>
+          <button class="btn btn-primary full" type="button" id="verifyOtpBtn">Verify and sign in</button>
+          <button class="back-link" type="button" id="backToPhone">← Change phone number</button>
+        </div>
+        <div id="studentMessage" aria-live="polite"></div>
+      </form>
+      <form id="adminAuthForm" class="hidden">
+        <div class="field"><label for="adminEmail">Administrator email</label><input id="adminEmail" type="email" autocomplete="username" placeholder="Admin email address" required /></div>
+        <div class="field"><label for="adminPassword">Password</label><input id="adminPassword" type="password" autocomplete="current-password" placeholder="Enter admin password" required /></div>
+        <button class="btn btn-primary full" type="submit" id="adminLoginBtn">Sign in as administrator <span aria-hidden="true">→</span></button>
+        <div id="adminMessage" aria-live="polite"></div>
+        <div class="privacy-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/><path d="M9 12h6"/></svg>There is no public admin registration. Admin access must be assigned securely in the database.</div>
+      </form>
+      <div id="setupNotice" class="setup-note hidden"></div>
+      <div class="privacy-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Your phone number is used for login. Other students cannot view your calendar or profile.</div>
+    </div>
+  </section>
+
+  <main id="appView" class="page-main hidden"></main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="owner"><span class="owner-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-5 9 5-9 5-9-5Z"/><path d="M7 11.2V16c2.7 2.1 7.3 2.1 10 0v-4.8"/></svg></span><div><div class="owner-name">Raiyan Khan Sami</div><div class="owner-meta">Bangladesh University of Business and Technology (BUBT)<br />Department of CSE</div></div></div>
+      <div class="socials"><a class="social-link" id="whatsappLink" href="#" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.5 11.5a8.3 8.3 0 0 1-12.3 7.2L3 20l1.3-5.1A8.3 8.3 0 1 1 20.5 11.5Z"/><path d="M8.5 8.2c.5 2.3 2.1 4 4.5 4.9l1.2-1.2 2 .9c.2.1.3.3.2.5-.2.9-.9 1.5-1.9 1.5-3.6-.2-7.4-3.9-7.5-7.5 0-.9.6-1.7 1.5-1.9.2 0 .4 0 .5.2l.9 2-1.4.6Z"/></svg>WhatsApp</a><a class="social-link" id="facebookLink" href="#" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.4 21v-8.2h2.8l.4-3.2h-3.2v-2c0-.9.3-1.6 1.6-1.6h1.7V3.1c-.3 0-1.4-.1-2.6-.1-2.6 0-4.3 1.6-4.3 4.5v2.1H7v3.2h2.8V21h3.6Z"/></svg>Facebook</a></div>
+      <div class="copyright">© <span id="copyrightYear">2026</span> Class Tracker · Built for simple, private tracking · Contact: +8801864939198</div>
+    </div>
+  </footer>
+</div>
+<div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+
+<script src="./config.js"></script>
+<script type="module">
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+  const CONFIG = window.CLASS_TRACKER_CONFIG || {};
+  const hasConfig = Boolean(CONFIG.supabaseUrl && CONFIG.supabaseAnonKey && !String(CONFIG.supabaseUrl).includes('YOUR_PROJECT') && !String(CONFIG.supabaseAnonKey).includes('YOUR_SUPABASE'));
+  const supabase = hasConfig ? createClient(CONFIG.supabaseUrl, CONFIG.supabaseAnonKey, { auth: { autoRefreshToken: true, persistSession: true, detectSessionInUrl: true } }) : null;
+  const $ = (selector) => document.querySelector(selector);
+  const authView = $('#authView');
+  const appView = $('#appView');
+  const toast = $('#toast');
+  let toastTimer;
+  let pendingPhone = '';
+  let pendingName = '';
+  let currentUser = null;
+  let currentProfile = null;
+  let monthCursor = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+  let selectedStudentId = null;
+  let studentProfiles = [];
+  let adminMarks = [];
+  let myMarks = [];
+  let searchValue = '';
+  let busy = false;
+
+  $('#copyrightYear').textContent = new Date().getFullYear();
+  setupSocialLink($('#whatsappLink'), CONFIG.whatsappUrl, 'WhatsApp');
+  setupSocialLink($('#facebookLink'), CONFIG.facebookUrl, 'Facebook');
+
+  function setupSocialLink(link, url, label) {
+    if (url && /^https:\/\//i.test(url)) {
+      link.href = url;
+    } else {
+      link.href = '#';
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        showToast(`${label} link not added yet. Add it in config.js.`, false);
+      });
+    }
+  }
+
+  function showToast(message, isError = false) {
+    clearTimeout(toastTimer);
+    toast.textContent = message;
+    toast.classList.toggle('error', isError);
+    toast.classList.remove('hidden');
+    toastTimer = setTimeout(() => toast.classList.add('hidden'), 3800);
+  }
+
+  function setMessage(element, message = '', type = 'error') {
+    if (!message) { element.innerHTML = ''; return; }
+    const node = document.createElement('div');
+    node.className = type === 'success' ? 'form-success' : 'form-error';
+    node.textContent = message;
+    element.replaceChildren(node);
+  }
+
+  function setBusy(button, value, label) {
+    button.disabled = value;
+    if (value) {
+      button.dataset.originalLabel = button.innerHTML;
+      button.innerHTML = '<span class="inline-spinner" aria-hidden="true"></span> Please wait…';
+    } else if (button.dataset.originalLabel) {
+      button.innerHTML = button.dataset.originalLabel;
+      delete button.dataset.originalLabel;
+    }
+    busy = value;
+  }
+
+  function esc(value) {
+    return String(value ?? '').replace(/[&<>"']/g, (ch) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  }
+
+  function normalizeBangladeshPhone(raw) {
+    let phone = raw.replace(/[\s()-]/g, '');
+    if (/^01[3-9]\d{8}$/.test(phone)) phone = '+88' + phone;
+    else if (/^8801[3-9]\d{8}$/.test(phone)) phone = '+' + phone;
+    if (!/^\+8801[3-9]\d{8}$/.test(phone)) return null;
+    return phone;
+  }
+
+  function iconCheck() { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>'; }
+  function avatarSvg() { return '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="16" cy="10" r="5"/><path d="M6.5 27c.7-5.3 4.2-8 9.5-8s8.8 2.7 9.5 8"/><path d="M4 8.5 16 3l12 5.5-12 5.5L4 8.5Z" opacity=".3"/></svg>'; }
+  function avatar(initials = '') { return `<span class="avatar">${avatarSvg()}</span>`; }
+  function formattedMonth(date) { return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' }); }
+  function dateKey(year, monthIndex, day) { return `${year}-${String(monthIndex + 1).padStart(2,'0')}-${String(day).padStart(2,'0')}`; }
+  function formatDateForScreen(key) {
+    const [y, m, d] = key.split('-').map(Number);
+    return new Date(y, m - 1, d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  }
+
+  function switchMode(mode) {
+    const studentMode = mode === 'student';
+    $('#studentTab').classList.toggle('active', studentMode);
+    $('#adminTab').classList.toggle('active', !studentMode);
+    $('#studentTab').setAttribute('aria-selected', String(studentMode));
+    $('#adminTab').setAttribute('aria-selected', String(!studentMode));
+    $('#studentAuthForm').classList.toggle('hidden', !studentMode);
+    $('#adminAuthForm').classList.toggle('hidden', studentMode);
+    $('#setupNotice').classList.toggle('hidden', hasConfig);
+  }
+  $('#studentTab').addEventListener('click', () => switchMode('student'));
+  $('#adminTab').addEventListener('click', () => switchMode('admin'));
+
+  if (!hasConfig) {
+    $('#setupNotice').textContent = 'Setup required: enter your Supabase project URL and public anon/publishable key in config.js, then run supabase_schema.sql before using login.';
+    $('#setupNotice').classList.remove('hidden');
+    $('#sendOtpBtn').disabled = true;
+    $('#verifyOtpBtn').disabled = true;
+    $('#adminLoginBtn').disabled = true;
+  }
+
+  $('#studentAuthForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!supabase || busy) return;
+    const name = $('#studentName').value.trim();
+    const phone = normalizeBangladeshPhone($('#studentPhone').value);
+    setMessage($('#studentMessage'));
+    if (name.length < 2) return setMessage($('#studentMessage'), 'Please enter your full name (at least 2 characters).');
+    if (!phone) return setMessage($('#studentMessage'), 'Enter a valid Bangladesh mobile number, for example 018XXXXXXXX.');
+    pendingName = name;
+    pendingPhone = phone;
+    const button = $('#sendOtpBtn');
+    setBusy(button, true);
+    const { error } = await supabase.auth.signInWithOtp({ phone, options: { shouldCreateUser: true, data: { full_name: name } } });
+    setBusy(button, false);
+    if (error) return setMessage($('#studentMessage'), readableAuthError(error));
+    $('#studentStartFields').classList.add('hidden');
+    $('#otpFields').classList.remove('hidden');
+    $('#otpCode').value = '';
+    $('#otpCode').focus();
+    setMessage($('#studentMessage'), `Verification code sent to ${phone}.`, 'success');
+  });
+
+  $('#backToPhone').addEventListener('click', () => {
+    $('#otpFields').classList.add('hidden');
+    $('#studentStartFields').classList.remove('hidden');
+    setMessage($('#studentMessage'));
+  });
+
+  $('#verifyOtpBtn').addEventListener('click', async () => {
+    if (!supabase || busy) return;
+    const token = $('#otpCode').value.trim();
+    if (!/^\d{6}$/.test(token)) return setMessage($('#studentMessage'), 'Enter the 6-digit code sent to your phone.');
+    const button = $('#verifyOtpBtn');
+    setBusy(button, true);
+    const { data, error } = await supabase.auth.verifyOtp({ phone: pendingPhone, token, type: 'sms' });
+    setBusy(button, false);
+    if (error) return setMessage($('#studentMessage'), readableAuthError(error));
+    if (!data.user) return setMessage($('#studentMessage'), 'Login could not be completed. Please try again.');
+    await ensureProfileName(data.user.id, pendingName);
+    await openDashboard(data.user);
+  });
+
+  $('#adminAuthForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!supabase || busy) return;
+    setMessage($('#adminMessage'));
+    const button = $('#adminLoginBtn');
+    setBusy(button, true);
+    const { data, error } = await supabase.auth.signInWithPassword({ email: $('#adminEmail').value.trim(), password: $('#adminPassword').value });
+    setBusy(button, false);
+    if (error) return setMessage($('#adminMessage'), readableAuthError(error));
+    const result = await openDashboard(data.user, true);
+    if (result === 'not-admin') {
+      await supabase.auth.signOut();
+      resetToAuth();
+      switchMode('admin');
+      setMessage($('#adminMessage'), 'This account is not registered as an administrator.');
+    }
+  });
+
+  function readableAuthError(error) {
+    const msg = String(error?.message || 'Something went wrong.');
+    if (/invalid login credentials/i.test(msg)) return 'Incorrect email or password.';
+    if (/phone.*disabled|sms.*disabled/i.test(msg)) return 'Phone login is not enabled yet. Enable Phone Auth and configure an SMS provider in Supabase.';
+    if (/rate limit|too many requests/i.test(msg)) return 'Too many attempts. Please wait a little and try again.';
+    if (/invalid.*otp|token has expired|otp expired/i.test(msg)) return 'That code is invalid or expired. Request a new code and try again.';
+    if (/fetch|network/i.test(msg)) return 'Could not connect to Supabase. Check your internet connection and config.js.';
+    return msg;
+  }
+
+  async function ensureProfileName(userId, name) {
+    if (!name) return;
+    const { error } = await supabase.from('profiles').update({ full_name: name }).eq('id', userId);
+    if (error) console.warn('Could not update profile name:', error.message);
+  }
+
+  async function openDashboard(user, requireAdmin = false) {
+    if (!user || !supabase) return;
+    currentUser = user;
+    const { data: profile, error } = await supabase.from('profiles').select('id,uid,full_name,phone,role,created_at').eq('id', user.id).maybeSingle();
+    if (error) {
+      showToast(`Could not load profile: ${error.message}`, true);
+      return;
+    }
+    if (!profile) {
+      showToast('Your profile has not been created yet. Check that the SQL setup ran successfully.', true);
+      return;
+    }
+    currentProfile = profile;
+    if (requireAdmin && profile.role !== 'admin') return 'not-admin';
+    if (profile.role === 'admin') {
+      const { data: adminCheck, error: adminCheckError } = await supabase.rpc('is_class_tracker_admin');
+      if (adminCheckError || adminCheck !== true) {
+        currentProfile = null;
+        return 'not-admin';
+      }
+      await loadAdminDashboard();
+    } else {
+      await loadStudentDashboard();
+    }
+    authView.classList.add('hidden');
+    appView.classList.remove('hidden');
+    $('#topLogout').classList.remove('hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    return 'ok';
+  }
+
+  async function loadStudentDashboard() {
+    const { data, error } = await supabase.from('calendar_marks').select('mark_date').eq('user_id', currentUser.id).order('mark_date');
+    if (error) throwErrorToast(error);
+    myMarks = (data || []).map((row) => row.mark_date);
+    renderStudentDashboard();
+  }
+
+  async function loadAdminDashboard() {
+    const { data, error } = await supabase.from('profiles').select('id,uid,full_name,phone,role,created_at').eq('role','student').order('full_name', { ascending: true });
+    if (error) { throwErrorToast(error); studentProfiles = []; }
+    else studentProfiles = data || [];
+    if (!selectedStudentId || !studentProfiles.some((p) => p.id === selectedStudentId)) selectedStudentId = studentProfiles[0]?.id || null;
+    await loadSelectedStudentMarks();
+    renderAdminDashboard();
+  }
+
+  async function loadSelectedStudentMarks() {
+    if (!selectedStudentId) { adminMarks = []; return; }
+    const { data, error } = await supabase.from('calendar_marks').select('mark_date').eq('user_id', selectedStudentId).order('mark_date');
+    if (error) { throwErrorToast(error); adminMarks = []; }
+    else adminMarks = (data || []).map((row) => row.mark_date);
+  }
+
+  function throwErrorToast(error) { showToast(error?.message || 'A database request failed.', true); }
+
+  function calendarMarkup(marks, adminMode, selectedUserId = '') {
+    const year = monthCursor.getFullYear();
+    const month = monthCursor.getMonth();
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const today = new Date();
+    const todayKey = dateKey(today.getFullYear(), today.getMonth(), today.getDate());
+    let cells = '';
+    for (let i = 0; i < firstDay; i++) cells += '<div class="day other-month" aria-hidden="true"></div>';
+    for (let day = 1; day <= daysInMonth; day++) {
+      const key = dateKey(year, month, day);
+      const marked = marks.includes(key);
+      const todayClass = key === todayKey ? ' today' : '';
+      const markedClass = marked ? ' marked' : '';
+      const modeClass = adminMode ? ' admin-day' : '';
+      const isDisabled = !adminMode ? ' disabled' : '';
+      const aria = `${marked ? 'Marked' : 'Not marked'}, ${formatDateForScreen(key)}${adminMode ? '. Click to '+(marked?'remove mark':'add green check mark') : ''}`;
+      cells += `<button type="button" class="day${todayClass}${markedClass}${modeClass}" data-date="${key}" data-user="${esc(selectedUserId)}" aria-label="${esc(aria)}"${isDisabled}>`+
+        `<span class="day-number">${day}</span>${marked ? `<span class="check-badge">${iconCheck()}</span>` : ''}</button>`;
+    }
+    const used = firstDay + daysInMonth;
+    const trailing = (7 - used % 7) % 7;
+    for (let i = 0; i < trailing; i++) cells += '<div class="day other-month" aria-hidden="true"></div>';
+    return `<div class="weekdays"><div class="weekday">Sun</div><div class="weekday">Mon</div><div class="weekday">Tue</div><div class="weekday">Wed</div><div class="weekday">Thu</div><div class="weekday">Fri</div><div class="weekday">Sat</div></div><div class="calendar-grid">${cells}</div>`;
+  }
+
+  function calendarFrame(marks, adminMode, selectedUserId = '') {
+    return `<section class="calendar-card ${adminMode ? 'admin-calendar' : ''}">
+      <div class="calendar-top ${adminMode ? 'admin-calendar-top' : ''}">
+        <div class="calendar-title"><h2>Calendar</h2><p>${adminMode ? 'Click a date to add or remove a green tick.' : 'Your personal class tracking calendar.'}</p></div>
+        ${adminMode && selectedUserId ? selectedUserStrip() : ''}
+        <div class="month-controls"><button class="icon-btn" type="button" id="previousMonth" aria-label="Previous month"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg></button><div class="month-label" id="monthLabel">${formattedMonth(monthCursor)}</div><button class="icon-btn" type="button" id="nextMonth" aria-label="Next month"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></button></div>
+      </div>
+      ${calendarMarkup(marks, adminMode, selectedUserId)}
+      <div class="calendar-legend"><span class="legend-item"><span class="legend-dot"></span>Not marked</span><span class="legend-item"><span class="legend-dot green"></span>Marked date</span><span class="legend-item"><span class="legend-check">${iconCheck()}</span>Completed / tracked</span></div>
+      ${adminMode ? '<div class="edit-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 18h.01M12 14a4 4 0 1 0-4-4"/><circle cx="12" cy="12" r="9"/></svg>Click a day once to mark it green. Click again to remove the mark.</div>' : ''}
+    </section>`;
+  }
+
+  function selectedStudent() { return studentProfiles.find((p) => p.id === selectedStudentId) || null; }
+  function selectedUserStrip() {
+    const p = selectedStudent();
+    if (!p) return '';
+    return `<div class="selected-user-strip">${avatar()}<div class="selected-user-copy"><strong>${esc(p.full_name || 'Student')}</strong><span>${esc(p.uid)} · ${esc(p.phone || 'No phone saved')}</span></div></div>`;
+  }
+
+  function renderStudentDashboard() {
+    const name = currentProfile.full_name || 'Student';
+    const markedThisMonth = myMarks.filter((key) => key.startsWith(`${monthCursor.getFullYear()}-${String(monthCursor.getMonth()+1).padStart(2,'0')}-`)).length;
+    appView.innerHTML = `<div class="dashboard-head"><div class="welcome"><h1>Your calendar</h1><p>Welcome back, ${esc(name)}. Your calendar is visible only to you and the admin.</p></div><div class="user-strip">${avatar()}<div class="user-meta"><strong>${esc(name)}</strong><span class="uid-pill">UID: ${esc(currentProfile.uid)}</span></div></div></div>
+      <div class="dashboard-grid">${calendarFrame(myMarks, false)}<aside class="side-card"><h3 class="side-title">Your profile</h3><p class="side-subtitle">Your personal account details.</p><div class="profile-line"><span>Full name</span><strong>${esc(name)}</strong></div><div class="profile-line"><span>Unique ID</span><strong>${esc(currentProfile.uid)}</strong></div><div class="profile-line"><span>Phone number</span><strong>${esc(currentProfile.phone || currentUser.phone || '—')}</strong></div><div class="summary-box"><div class="summary-box-row"><span class="summary-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg></span><div><div class="summary-number">${markedThisMonth}</div><div class="summary-label">Green-marked dates this month</div></div></div></div><p class="note-block">Dates are marked by the administrator. You can view your marks, but you cannot add or remove them. Other students cannot open your calendar.</p></aside></div>`;
+    wireCalendarNavigation();
+  }
+
+  function renderAdminDashboard() {
+    const selected = selectedStudent();
+    const visibleStudents = studentProfiles.filter((p) => `${p.full_name || ''} ${p.phone || ''} ${p.uid || ''}`.toLowerCase().includes(searchValue.toLowerCase()));
+    const count = studentProfiles.length;
+    const studentList = visibleStudents.length ? visibleStudents.map((p) => `<button class="student-option${p.id === selectedStudentId ? ' active' : ''}" data-select-user="${p.id}" type="button">${avatar()}<span class="student-option-copy"><strong>${esc(p.full_name || 'Student')}</strong><span>${esc(p.uid)} · ${esc(p.phone || 'No phone')}</span></span></button>`).join('') : '<div class="empty-state">No students found. Students will appear here after their first verified phone login.</div>';
+    const marksCount = selected ? adminMarks.length : 0;
+    appView.innerHTML = `<div class="dashboard-head"><div class="welcome"><h1>Admin dashboard</h1><p>Manage individual calendars and mark dates for each student.</p></div><div class="user-strip">${avatar()}<div class="user-meta"><strong>${esc(currentProfile.full_name || 'Administrator')}</strong><span class="uid-pill">ADMIN · UID: ${esc(currentProfile.uid)}</span></div></div></div>
+      <div class="dashboard-grid admin-grid"><aside class="side-card admin-users"><h3 class="side-title">Students</h3><p class="side-subtitle">Choose a student to open their private calendar.</p><div class="admin-stats"><div class="stat"><strong>${count}</strong><span>Total students</span></div><div class="stat"><strong>${marksCount}</strong><span>All-time marks${selected ? ' · selected' : ''}</span></div></div><input type="search" class="search-input" id="studentSearch" placeholder="Search name, phone or UID…" value="${esc(searchValue)}" aria-label="Search students"/><div id="studentList" class="user-list">${studentList}</div></aside>
+      ${selected ? calendarFrame(adminMarks, true, selected.id) : `<section class="calendar-card"><div class="empty-state">No student accounts yet.<br/>A student will appear here after verifying their phone number.</div></section>`}</div>`;
+    wireCalendarNavigation();
+    $('#studentSearch')?.addEventListener('input', (event) => {
+      searchValue = event.target.value;
+      const cursor = event.target.selectionStart;
+      renderAdminDashboard();
+      const input = $('#studentSearch');
+      input.focus();
+      input.setSelectionRange(cursor, cursor);
+    });
+    appView.querySelectorAll('[data-select-user]').forEach((button) => button.addEventListener('click', async () => {
+      if (busy) return;
+      selectedStudentId = button.dataset.selectUser;
+      adminMarks = [];
+      await loadSelectedStudentMarks();
+      renderAdminDashboard();
+    }));
+    appView.querySelectorAll('.admin-day').forEach((button) => button.addEventListener('click', async () => {
+      if (busy || !selectedStudentId) return;
+      const key = button.dataset.date;
+      const isMarked = adminMarks.includes(key);
+      button.disabled = true;
+      const { error } = isMarked
+        ? await supabase.from('calendar_marks').delete().eq('user_id', selectedStudentId).eq('mark_date', key)
+        : await supabase.from('calendar_marks').insert({ user_id: selectedStudentId, mark_date: key, marked_by: currentUser.id });
+      if (error) {
+        showToast(`Could not save mark: ${error.message}`, true);
+        button.disabled = false;
+        return;
+      }
+      adminMarks = isMarked ? adminMarks.filter((date) => date !== key) : [...adminMarks, key].sort();
+      renderAdminDashboard();
+      showToast(isMarked ? `Removed mark from ${formatDateForScreen(key)}.` : `Green tick added for ${formatDateForScreen(key)}.`);
+    }));
+  }
+
+  function wireCalendarNavigation() {
+    $('#previousMonth')?.addEventListener('click', async () => {
+      monthCursor = new Date(monthCursor.getFullYear(), monthCursor.getMonth() - 1, 1);
+      if (currentProfile?.role === 'admin') { await loadSelectedStudentMarks(); renderAdminDashboard(); }
+      else renderStudentDashboard();
+    });
+    $('#nextMonth')?.addEventListener('click', async () => {
+      monthCursor = new Date(monthCursor.getFullYear(), monthCursor.getMonth() + 1, 1);
+      if (currentProfile?.role === 'admin') { await loadSelectedStudentMarks(); renderAdminDashboard(); }
+      else renderStudentDashboard();
+    });
+  }
+
+  function resetToAuth() {
+    currentUser = null;
+    currentProfile = null;
+    studentProfiles = [];
+    selectedStudentId = null;
+    adminMarks = [];
+    myMarks = [];
+    authView.classList.remove('hidden');
+    appView.classList.add('hidden');
+    appView.innerHTML = '';
+    $('#topLogout').classList.add('hidden');
+    $('#studentStartFields').classList.remove('hidden');
+    $('#otpFields').classList.add('hidden');
+    $('#otpCode').value = '';
+    $('#studentName').value = '';
+    $('#studentPhone').value = '';
+    $('#adminPassword').value = '';
+    setMessage($('#studentMessage'));
+    setMessage($('#adminMessage'));
+    switchMode('student');
+  }
+
+  $('#topLogout').addEventListener('click', async () => {
+    if (!supabase) return;
+    const { error } = await supabase.auth.signOut();
+    if (error) return showToast(error.message, true);
+    resetToAuth();
+    showToast('You have signed out.');
+  });
+  $('#brandHome').addEventListener('click', (event) => {
+    event.preventDefault();
+    if (currentUser) window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  if (supabase) {
+    const { data, error } = await supabase.auth.getSession();
+    if (error) showToast(error.message, true);
+    if (data?.session?.user) await openDashboard(data.session.user);
+  }
+</script>
+</body>
+</html>
