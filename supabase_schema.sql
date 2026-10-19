@@ -198,13 +198,13 @@ using ((select private.is_admin()));
 -- run the two statements in the Supabase SQL Editor. Do NOT put this email into
 -- the public website config. This grants administrator access to that account.
 --
--- insert into public.app_admins (user_id)
--- select id from auth.users where lower(email) = lower('YOUR_ADMIN_EMAIL@example.com')
--- on conflict (user_id) do nothing;
---
--- update public.profiles
--- set role = 'admin'
--- where id = (select id from auth.users where lower(email) = lower('YOUR_ADMIN_EMAIL@example.com'));
+insert into public.app_admins (user_id)
+select id from auth.users where lower(email) = lower('raiyankhansami01@gmail.com')
+on conflict (user_id) do nothing;
+
+update public.profiles
+set role = 'admin'
+where id = (select id from auth.users where lower(email) = lower('raiyankhansami01@gmail.com'));
 --
 -- Only accounts listed in app_admins are admins; changing a client-side value
 -- or editing the visible profile role cannot grant admin database permissions.
