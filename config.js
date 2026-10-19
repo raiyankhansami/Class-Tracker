@@ -4,8 +4,8 @@
   Never put a Supabase service_role/secret key in this file.
 */
 window.CLASS_TRACKER_CONFIG = {
-  supabaseUrl: "https://YOUR_PROJECT.supabase.co",
-  supabaseAnonKey: "YOUR_SUPABASE_ANON_OR_PUBLISHABLE_KEY",
+  supabaseUrl: "https://pxjhsdpybkbduymatxck.supabase.co",
+  supabaseAnonKey: "sb_publishable_GCVa75uv9TbiXiKbv7GJjQ_JgWZEmhA",
   whatsappUrl: "", // Example: https://wa.me/8801864939198
   facebookUrl: ""  // Paste your Facebook profile/page URL here
 };
